@@ -11,7 +11,11 @@
   "content_scripts": [
     {
       "matches": ["https://*.practicefusion.com/*"],
-      "js": ["contentScript.js"]
+      "js": ["contentScript.js"],
+      "type": "module"
     }
-  ]
+  ],
+  "action": {
+    "default_title": "Toggle Practice Fusion Assistant"
+  }
 }
