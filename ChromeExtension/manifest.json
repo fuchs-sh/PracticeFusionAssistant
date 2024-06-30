@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Practice Fusion Assistant",
+  "version": "1.0",
+  "description": "Enhances Practice Fusion EHR with AI-powered suggestions",
+  "permissions": ["activeTab"],
+  "host_permissions": ["https://*.practicefusion.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.practicefusion.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ]
+}
