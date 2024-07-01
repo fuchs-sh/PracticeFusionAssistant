@@ -11,8 +11,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.practicefusion.com/*"],
-      "js": ["overlay.js", "contentScript.js"],
-      "type": "module"
+      "js": ["overlay.js", "dataExtractor.js", "contentScript.js"]
     }
   ],
   "action": {
