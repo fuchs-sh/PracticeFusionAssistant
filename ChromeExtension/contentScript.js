@@ -11,29 +11,28 @@ function updateOverlayContent() {
     claimSubmission =
       window.PFAssistant.dataExtractor.removePHI(claimSubmission);
 
-    overlay.innerHTML = `
-      <h2>Practice Fusion Assistant</h2>
-      <h3>Visit Summary:</h3>
-      <p>${visitSummary}</p>
-      <h3>Claim Submission:</h3>
-      <p>${claimSubmission}</p>
-    `;
+    fetch("http://localhost:3000/process", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ visitSummary, claimSubmission }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        overlay.innerHTML = `
+        <h2>Practice Fusion Assistant</h2>
+        <h3>Visit Summary Suggestions:</h3>
+        <p>${data.visitSuggestions}</p>
+        <h3>Claim Submission Suggestions:</h3>
+        <p>${data.claimSuggestions}</p>
+      `;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        overlay.innerHTML = `<p>Error processing data. Please try again.</p>`;
+      });
   }
 }
 
-// Create the overlay when the page loads
-window.PFAssistant.createOverlay();
-updateOverlayContent();
-
-// Listen for messages from the background script
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "toggleOverlay") {
-    const overlay = document.getElementById("pf-assistant-overlay");
-    if (overlay) {
-      window.PFAssistant.removeOverlay();
-    } else {
-      window.PFAssistant.createOverlay();
-      updateOverlayContent();
-    }
-  }
-});
+// Rest of the code remains the same...

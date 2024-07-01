@@ -4,7 +4,10 @@
   "version": "1.0",
   "description": "Enhances Practice Fusion EHR with AI-powered suggestions",
   "permissions": ["activeTab"],
-  "host_permissions": ["https://*.practicefusion.com/*"],
+  "host_permissions": [
+    "https://*.practicefusion.com/*",
+    "http://localhost:3000/"
+  ],
   "background": {
     "service_worker": "background.js"
   },
